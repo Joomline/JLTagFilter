@@ -43,9 +43,7 @@ if($option != 'com_content' || (!in_array($catid, $allowedCats) && $allowedCats[
 }
 
 $action = JRoute::_(ContentHelperRoute::getCategoryRoute($catid));
-
-$tags = ModJlTagFilterHelper::getTags($params, $catid, $jltagfilter);
-
+$tags = ModJlTagFilterHelper::getTags($params);
 $selectedFirstLayer = ModJlTagFilterHelper::getSelectedFirstLayer($tags, $filter_tag);
 
 if(count($tags[1])){

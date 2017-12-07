@@ -14,7 +14,7 @@ require_once JPATH_ROOT. '/administrator/components/com_fields/helpers/fields.ph
 
 class ModJlTagFilterHelper
 {
-	public static function getTags($params, $category_id, $values)
+	public static function getTags($params)
 	{
 		$app = JFactory::getApplication();
 		$tags = array(1 => array(), 2 => array());
@@ -58,5 +58,27 @@ class ModJlTagFilterHelper
 		}
 
 		return $selectedFirstLayer;
+	}
+
+	public static function recombineTags($tags){
+		if(!is_array($tags) || !count($tags)){
+			return $tags;
+		}
+		$levels = array_keys($tags);
+
+		$newTags = array();
+		foreach ( $levels as $level ) {
+			foreach ($tags[$level] as $tag){
+				if($level == 1){
+					$newTags[$tag->id] = $tag;
+					$newTags[$tag->id]->children = array();
+				}
+				else if(isset($newTags[$tag->parent_id]->children)){
+					$newTags[$tag->parent_id]->children[] = $tag;
+				}
+			}
+		}
+
+		return $newTags;
 	}
 }

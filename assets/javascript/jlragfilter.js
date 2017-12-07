@@ -19,6 +19,24 @@ var JlTagFilter = {
             jQuery('#tag-select-2').on('change', function () {
                 $this.onChangeLastSelect(jQuery(this).val())
             });
+
+            jQuery('#mod-jltagfilter-dropdown-menu a.final').on('click', function (event) {
+                event.preventDefault();
+                var el = jQuery(this);
+                var val = jQuery(this).data('id');
+                var form = jQuery($this.form_identifier);
+                form.find('input[name="filter_tag"]').val(val);
+
+                if($this.ajax == 0){
+                    form.submit();
+                }
+                else{
+                    jQuery('#mod-jltagfilter-dropdown-menu li').removeClass('active');
+                    el.parent().addClass('active');
+                    el.parent().parent().parent('li').addClass('active');
+                    $this.submit();
+                }
+            });
         });
     },
     onChangeFirstSelect: function (val) {
