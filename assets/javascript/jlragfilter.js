@@ -13,13 +13,21 @@ var JlTagFilter = {
         }
         jQuery(document).ready(function () {
             jQuery('#tag-select-1').on('change', function () {
-                $this.changeNextSelect(jQuery(this).val())
+                $this.onChangeFirstSelect(jQuery(this).val())
+            });
+
+            jQuery('#tag-select-2').on('change', function () {
+                $this.onChangeLastSelect(jQuery(this).val())
             });
         });
     },
-    changeNextSelect: function (val) {
+    onChangeFirstSelect: function (val) {
         jQuery('#tag-select-2').val('').find('option').not(':first').hide();
         jQuery('#tag-select-2').find('option[data-parent-id="'+val+'"]').show();
+        jQuery('#tag-select-filter-tag').val(val);
+    },
+    onChangeLastSelect: function (val) {
+        jQuery('#tag-select-filter-tag').val(val);
     },
     clearForm: function (element) {
         jQuery('#tag-select-1').val('');
@@ -30,9 +38,7 @@ var JlTagFilter = {
         var $this = this;
         $this.ShowLoadingScreen();
         var form = jQuery($this.form_identifier);
-        var oneSelectVal = jQuery('#tag-select-1').val();
-        var twoSelectVal = jQuery('#tag-select-2').val();
-        var val = twoSelectVal == '' ? oneSelectVal : twoSelectVal;
+        var val = jQuery('#tag-select-filter-tag').val();
         jQuery.ajax({
             type: 'get',
             url: form.attr('action'),

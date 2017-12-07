@@ -24,11 +24,10 @@ $submitFunction = $ajax ? ' onclick="JlTagFilter.submit(); return false;"' : '';
 <form id="mod-jltagfilter-form" action="<?php echo $action; ?>" method="get" class="form-search">
 	<div class="jlcontentfieldsfilter<?php echo $moduleclass_sfx; ?> row-fluid">
         <?php foreach($tags as $level => $tags) : ?>
-        <?php $name = $level == 1 ? '' : 'filter_tag'; ?>
+        <?php $name = $level == 1 ? '' : ''; ?>
             <div class="control-group">
                 <div class="controls">
                     <select
-                            name="<?php echo $name; ?>"
                             id="tag-select-<?php echo $level; ?>"
                             class="span12"
                     >
@@ -55,7 +54,7 @@ $submitFunction = $ajax ? ' onclick="JlTagFilter.submit(); return false;"' : '';
             </div>
             <div style="clear: both;"></div>
         <?php endforeach; ?>
-
+        <input type="hidden" id="tag-select-filter-tag" name="filter_tag" value="">
         <input type="submit" id="tag-select-submit"
                <?php echo $submitFunction; ?>
                title="<?php echo JText::_('MOD_JLTAGFILTER_SUBMIT'); ?>"
